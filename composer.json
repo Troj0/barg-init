@@ -1,0 +1,41 @@
+{
+  "name": "alterbyte/barg-init",
+  "description": "Auction mini system",
+  "keywords": [
+    "flarum"
+  ],
+  "type": "flarum-extension",
+  "license": "0BSD",
+  "require": {
+    "flarum/core": "^0.1.0-beta.13",
+    "fof/components": ">=0.1.0",
+    "illuminate/console": "^6.0",
+    "symfony/process": "~4.0",
+    "fof/console": "0.6.1"
+  },
+  "authors": [
+    {
+      "name": "alterbyte",
+      "email": "muugotwings@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Alterbyte\\BargainInit\\": "src/"
+    }
+  },
+  "extra": {
+    "flarum-extension": {
+      "title": "Bargain",
+      "icon": {
+        "name": "",
+        "backgroundColor": "",
+        "color": ""
+      }
+    },
+    "flagrow": {
+      "discuss": ""
+    }
+  }
+}
