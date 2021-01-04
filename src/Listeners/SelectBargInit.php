@@ -79,7 +79,7 @@ class SelectBargInit
 //add_columns_to_discussion_table.php
         if ($id > 0) {
             $discussion->barg_init_post_id = $id;
-            $discussion->alterbyte_Dis_rating = $attributes['alterbyteBidding'];
+            //$discussion->alterbyte_Dis_rating = $attributes['alterbyteBidding'];
             $discussion->barg_init_user_id = $event->actor->id;
             $discussion->barg_init_set_at = Carbon::now();
 
