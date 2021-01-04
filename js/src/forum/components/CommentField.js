@@ -7,5 +7,6 @@ export default class CommentField extends Component {
     }    
     view() {
         return <input type="text" name="CommentBid" value={this.content} readonly></input>
+        console.log('hello');
     }
 };
