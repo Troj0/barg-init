@@ -6,6 +6,7 @@ namespace Alterbyte\BargainInit\Notification;
 use Flarum\Discussion\Discussion;
 use Flarum\Notification\Blueprint\BlueprintInterface;
 use Flarum\Notification\MailableInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SelectBargInitBlueprint implements BlueprintInterface, MailableInterface
 {
@@ -74,10 +75,10 @@ class SelectBargInitBlueprint implements BlueprintInterface, MailableInterface
      *
      * @return string
      */
-    public function getEmailSubject()
+    public function getEmailSubject(TranslatorInterface $translator)
     {
-        return app('translator')->trans('alterbyte-barg-init.forum.notification.select_email_title', [
-            'title' => $this->discussion->title,
+        return $translator->trans('fof-best-answer.email.subject.select', [
+            '{discussion_title}' => $this->discussion->title,
         ]);
     }
 }

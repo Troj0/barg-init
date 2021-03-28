@@ -15,6 +15,7 @@ use Flarum\Discussion\Discussion;
 use Flarum\Notification\Blueprint\BlueprintInterface;
 use Flarum\Notification\MailableInterface;
 use Flarum\User\User;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AwardedBargInitBlueprint implements BlueprintInterface, MailableInterface
 {
@@ -92,11 +93,11 @@ class AwardedBargInitBlueprint implements BlueprintInterface, MailableInterface
      *
      * @return string
      */
-    public function getEmailSubject()
+    public function getEmailSubject(TranslatorInterface $translator)
     {
-        return app('translator')->trans('barg-init.forum.notification.awarded_email', [
-            'user'  => $this->actor->username,
-            'title' => $this->discussion->title,
+        return $translator->trans('barg-init.forum.notification.awarded_email', [
+            '{display_name}'     => $this->actor->display_name,
+            '{discussion_title}' => $this->discussion->title,
         ]);
     }
 }

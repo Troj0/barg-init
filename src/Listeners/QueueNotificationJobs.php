@@ -18,7 +18,7 @@ class QueueNotificationJobs
 {
     public function handle(BargInitSet $event)
     {
-        app('flarum.queue.connection')->push(
+        resolve('flarum.queue.connection')->push(
             new Jobs\SendNotificationWhenBargInitSetInDiscussion($event->discussion, $event->actor)
         );
     }

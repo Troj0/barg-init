@@ -15,6 +15,7 @@ use Flarum\Discussion\Discussion;
 use Flarum\Notification\Blueprint\BlueprintInterface;
 use Flarum\Notification\MailableInterface;
 use Flarum\User\User;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class BargInitSetInDiscussionBlueprint implements BlueprintInterface, MailableInterface
 {
@@ -84,7 +85,7 @@ class BargInitSetInDiscussionBlueprint implements BlueprintInterface, MailableIn
      */
     public function getEmailView()
     {
-        return ['text' => 'alterbyte-barg-init::emails.bargInitSetInDiscussion.blade'];
+        return ['text' => 'alterbyte-barg-init::emails.bargInitSetInDiscussion'];
     }
 
     /**
@@ -92,11 +93,11 @@ class BargInitSetInDiscussionBlueprint implements BlueprintInterface, MailableIn
      *
      * @return string
      */
-    public function getEmailSubject()
+    public function getEmailSubject(TranslatorInterface $translator)
     {
-        return app('translator')->trans('fof-best-answer.forum.notification.barg_init_set_in_discussion_email', [
-            'user'  => $this->actor->username,
-            'title' => $this->discussion->title,
+        return $translator->trans('fof-best-answer.forum.notification.barg_init_set_in_discussion_email', [
+            '{display_name}'     => $this->actor->display_name,
+            '{discussion_title}' => $this->discussion->title,
         ]);
     }
 }
