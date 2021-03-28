@@ -1,7 +1,7 @@
-import app from 'flarum/app';
-import { extend } from 'flarum/extend';
-import Badge from 'flarum/components/Badge';
-import Discussion from 'flarum/models/Discussion';
+import app from 'flarum/common/app';
+import { extend } from 'flarum/common/extend';
+import Badge from 'flarum/common/components/Badge';
+import Discussion from 'flarum/common/models/Discussion';
 
 //adding badge on Discussion Hero / and on discussion list
 export default function() {

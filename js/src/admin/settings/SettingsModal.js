@@ -1,4 +1,4 @@
-import FlarumSettingsModal from 'flarum/components/SettingsModal';
+//SettingsModalimport FlarumSettingsModal from 'flarum/components/SettingsModal';
 import classList from 'flarum/utils/classList';
 
 export default class SettingsModal extends FlarumSettingsModal {

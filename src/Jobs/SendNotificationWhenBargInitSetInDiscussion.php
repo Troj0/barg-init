@@ -59,14 +59,14 @@ class SendNotificationWhenBargInitSetInDiscussion implements ShouldQueue
         }
 
         // Send notifications to other participants of the discussion
-        $recipients = User::whereIn('id', Post::select('user_id')->where('discussion_id', $this->discussion->id))
-            ->whereNotIn('id', [$bargInitAuthor->id, $this->actor->id])
+        $recipients = $recipientsBuilder
+            ->whereNotIn('id', $exclude)
             ->get();
 
         $notifications->sync(new Notification\BargInitSetInDiscussionBlueprint($this->discussion, $this->actor), $recipients->all());
     }
 
-    public function getUserFromPost(int $post_id): User
+    public function getUserFromPost(int $post_id): ?User
     {
         return Post::find($post_id)->user;
     }
