@@ -11,7 +11,7 @@
     "fof/components": ">=0.1.0",
     "illuminate/console": "^8.33",
     "symfony/process": "~5.2.4",
-    "fof/console": "0.6.1"
+    "fof/console": "^8.33"
   },
   "authors": [
     {
