@@ -1,6 +1,7 @@
-import Component from 'flarum/Component';
-import icon from 'flarum/helpers/icon';
-import humanTime from 'flarum/helpers/humanTime';
+import Component from 'flarum/common/Component';
+import icon from 'flarum/common/helpers/icon';
+import humanTime from 'flarum/common/helpers/humanTime';
+import Link from 'flarum/common/components/Link';
 
 export default class SelectBargInitItem extends Component {
     view() {
