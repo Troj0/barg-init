@@ -10,7 +10,7 @@ import SelectBargInitItem from './components/SelectBargInitItem';
 
 export default () => {
     extend(CommentPost.prototype, 'headerItems', function(items) {
-        const post = this.props.post;
+        const post = this.attrs.post;
         //const bidPost = post.attribute('alterbyteBidding');
 
         if (
@@ -32,10 +32,10 @@ export default () => {
     });
 
     extend(CommentPost.prototype, 'footerItems', function(items) {
-        const thisPost = this.props.post;
+        const thisPost = this.attrs.post;
         const discussion = thisPost.discussion();
         const post = discussion.bargInitPost();
-        const bidPostValueIsNotNull = this.props.post.attribute('alterbyteBidding') !== null;
+        const bidPostValueIsNotNull = this.attrs.post.attribute('alterbyteBidding') !== null;
 
         if (post && bidPostValueIsNotNull && !post.isHidden() && thisPost.number() === 1 && !thisPost.isHidden()) {
             const user = post.user();
@@ -90,7 +90,7 @@ export default () => {
     });
 
     extend(PostComponent.prototype, 'attrs', function(attrs) {
-        const post = this.props.post;
+        const post = this.attrs.post;
 
         if (
             post.discussion().bargInitPost() &&

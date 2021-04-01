@@ -72,8 +72,8 @@ export default () => {
     extend(CommentPost.prototype, 'actionItems', function (items) {
         if (!app.forum.attribute('useAlternativeBargInitUi')) return;
 
-        const post = this.props.post;
-        const discussion = this.props.post.discussion();
+        const post = this.attrs.post;
+        const discussion = this.attrs.post.discussion();
         let isBargInit = isThisSale(discussion, post);
         let hasBargInit = discussion.bargInitPost() !== false;
 
