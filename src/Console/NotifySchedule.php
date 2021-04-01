@@ -1,6 +1,6 @@
 <?php
 
-namespace FoF\BestAnswer\Console;
+namespace Alterbyte\BargainInit\Console;
 
 use Flarum\Foundation\Paths;
 use Flarum\Settings\SettingsRepositoryInterface;
