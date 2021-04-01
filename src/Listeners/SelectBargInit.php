@@ -85,25 +85,16 @@ class SelectBargInit
             $discussion->barg_init_post_id = $id;
             $discussion->barg_init_user_id = $actor->id;
             $discussion->barg_init_set_at = Carbon::now();
-            
-        $attributes = Arr::get($event->data, 'attributes', []);
-        if (array_key_exists('alterbyteBidding', $attributes))  {
-            $validator = app(RatingValidator::class);
-            $validator->assertValid([
-                'bid' => $attributes['alterbyteBidding'],
-            ]);
-        }
-
-        //add_columns_to_discussion_table.php
-        if ($id > 0) {
-            $discussion->barg_init_post_id = $id;
-            //$discussion->alterbyte_Dis_rating = $attributes['alterbyteBidding'];
-            $discussion->barg_init_user_id = $event->actor->id;
-            $discussion->barg_init_set_at = Carbon::now();
-
             Notification::where('type', 'selectBargInit')->where('subject_id', $discussion->id)->delete();
             $this->notifyUsersOfBargInitSet($event);
-        } elseif ($id == 0) {
+            
+            //$attributes = Arr::get($event->data, 'attributes', []);
+            //if (array_key_exists('alterbyteBidding', $attributes))  {
+            //$validator = app(RatingValidator::class);
+            //$validator->assertValid([
+             //   'bid' => $attributes['alterbyteBidding'],
+            //]);
+        }elseif ($id == 0) {
             $discussion->barg_init_post_id = null;
             $discussion->barg_init_user_id = null;
             $discussion->barg_init_set_at = null;

@@ -5,7 +5,7 @@ import Link from 'flarum/common/components/Link';
 
 export default class SelectBargInitItem extends Component {
     view() {
-        const { post, discussion } = this.props;
+        const { post, discussion } = this.attrs;
 
         return (
             <div className="Post--BargInit">
