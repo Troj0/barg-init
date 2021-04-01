@@ -52,6 +52,8 @@ class SendNotificationWhenBargInitSetInDiscussion implements ShouldQueue
         }
 
         $bargInitAuthor = $this->getUserFromPost($this->discussion->barg_init_post_id);
+        $recipientsBuilder = User::whereIn('id', Post::select('user_id')->where('discussion_id', $this->discussion->id));
+        $exclude = [$this->actor->id];
 
         // Send notification to the post author that has been awarded the best answer, except if the best answer was set by the author
         if ($bargInitAuthor->id !== $this->actor->id) {

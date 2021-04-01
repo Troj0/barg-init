@@ -5,7 +5,7 @@ namespace Alterbyte\BargainInit\Events;
 use Flarum\Discussion\Discussion;
 use Flarum\User\User;
 
-class BestAnswerUnset
+class BargInitUnset
 {
     /**
      * @var Discussion

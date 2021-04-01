@@ -32,13 +32,13 @@ export default () => {
             })
             .then(() => {
                 if (app.current instanceof DiscussionPage) {
-                    app.current.stream.update();
+                    app.current.get('stream').update();
                 }
 
                 m.redraw();
 
                 if (isBargInit) {
-                    m.route(app.route.discussion(discussion));
+                    m.route.set(app.route.discussion(discussion));
                 }
             });
     };
@@ -53,19 +53,20 @@ export default () => {
 
         if (post.contentType() !== 'comment') return;
 
-        if (ineligible(discussion, post) || blockSelectOwnPost(post)) return;
+        //if (ineligible(discussion, post) || blockSelectOwnPost(post) || !app.current.matches(DiscussionPage)) return;
 
         items.add(
             'bargInit-dle',
-            Button.component({
-                children: actionLabel(isBargInit),
+            Button.component({ 
                 icon: `fa${isBargInit ? 's' : 'r'} fa-comment-dots`,
                 onclick: () => {
                     isBargInit = !isBargInit;
 
                     saveDiscussion(discussion, isBargInit, post);
                 },
-            })
+            },
+            actionLabel(isBargInit)
+            )
         );
     });
 
@@ -74,25 +75,26 @@ export default () => {
 
         const post = this.attrs.post;
         const discussion = this.attrs.post.discussion();
-        let isBargInit = isThisSale(discussion, post);
+        let isBargInit = isThisBargInit(discussion, post);
         let hasBargInit = discussion.bargInitPost() !== false;
 
         post.pushAttributes({ isBargInit });
 
-        if (ineligible(discussion, post) || blockSelectOwnPost(post)) return;
+        if (ineligible(discussion, post) || blockSelectOwnPost(post) || !app.current.matches(DiscussionPage)) return;
 
         items.add(
             'bargInit',
             Button.component({
-                children: actionLabel(isBargInit),
-                className: !hasBargInit ? 'Button Button--primary' : (isBargInit ? 'Button Button--primary' : 'Button Button--link'),
+                className: !hasBargInit ? 'Button Button--primary' : isBargInit ? 'Button Button--primary' : 'Button Button--link',
                 onclick: function onclick() {
                     hasBargInit = !hasBargInit;
                     isBargInit = !isBargInit;
 
                     saveDiscussion(discussion, isBargInit, post);
                 },
-            })
+            },
+            actionLabel(isBargInit)
+            )
         );
     });
 };
