@@ -6,14 +6,14 @@ export default class AwardedBargInitNotification extends Notification {
     }
 
     href() {
-        const notification = this.props.notification;
+        const notification = this.attrs.notification;
         const discussion = notification.subject();
 
         return app.route.discussion(discussion);
     }
 
     content() {
-        const user = this.props.notification.fromUser();
+        const user = this.attrs.notification.fromUser();
         return app.translator.trans('barg-init.forum.notification.awarded', {
             user: user,
         });

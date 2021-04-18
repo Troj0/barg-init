@@ -39,19 +39,43 @@ export default () => {
         const thisPost = this.attrs.post;
         const discussion = thisPost.discussion();
         const post = discussion.bargInitPost();
-        const bargInitUser = post.user();
-       //const firstPost = this.attrs.post.number() === 1;
-        const discussionAuthor = thisPost.user();
+        //this.attrs.post.data.relationships.user.data.id
         
-        const notbargInitUser = app.session.user != bargInitUser;
-        const notAuthor = app.session.user != discussionAuthor;
-        const guest = notbargInitUser && notAuthor;
+       //const firstPost = this.attrs.post.number() === 1;
+        
+       //Make the author var
+        const firstPost = thisPost.number() === 1;
+        const firstPostUserId = firstPost === true ? this.attrs.post.data.relationships.user.data.id : null;
+        const discussionAuthor = firstPostUserId ;
+        //***   
+
+        //Make the bargInituser var
+        if(discussion.bargInitPost()){
+            this.bargInitUser = discussion.bargInitPost().data.relationships.user.data.id;
+            }
+        //*** 
+        if(app.session.user){
+            this.appSeassionUser = app.session.user.data.id;
+        }
+        
+        const notbargInitUser = this.appSeassionUser != this.bargInitUser;
+        if(firstPostUserId != null){
+            this.notAuthor = this.appSeassionUser != discussionAuthor;
+        }
+        
+        const guest = notbargInitUser && this.notAuthor;
         const bidPostValueIsNotNull = this.attrs.post.attribute('alterbyteBidding') !== null;
 
-        // will not apear to barginit user and the discussion author
-        if (post && bidPostValueIsNotNull && !post.isHidden() && thisPost.number() === 1 && !thisPost.isHidden() && notbargInitUser && notAuthor) {
+        // will not apear to barginit user nor the discussion author
+        if (post && bidPostValueIsNotNull && !post.isHidden() && thisPost.number() === 1 && !thisPost.isHidden() && notbargInitUser && this.notAuthor) {
             const user = post.user();
-            const bidPost = post.attribute('alterbyteBidding') + " ر.س";
+            const bidPost = post.attribute('alterbyteBidding');
+            if(typeof(bidPost) != "undefined"){
+                this.bidPost = post.attribute('alterbyteBidding') + " ر.س";
+            }
+            else{
+                this.bidPost = 'Please login to see bid'
+            }
             const approved = true;
             const isItapproved = approved === true ? 'approved' : 'NotApproved';
 
@@ -82,7 +106,7 @@ export default () => {
                             })}
                         </ul>
                         <div Class="item-bid">
-                            <input class="bidValue" type="text" name="CommentBid" value={bidPost} readonly></input>
+                            <input class="bidValue" type="text" name="CommentBid" value={this.bidPost} readonly></input>
                             </div>
                     </div>
                     <div className="Post-body">{m.trust(post.contentHtml())}
@@ -102,9 +126,12 @@ export default () => {
         }
         // will apear only to barginit user
 
-        if (post && bidPostValueIsNotNull && !post.isHidden() && thisPost.number() === 1 && !thisPost.isHidden() && notAuthor && !guest) {
+        if (post && bidPostValueIsNotNull && !post.isHidden() && thisPost.number() === 1 && !thisPost.isHidden() && this.notAuthor && !guest) {
             const user = post.user();
             const bidPost = post.attribute('alterbyteBidding') + " ر.س";
+            if(bidPost !== null){
+                this.bidPost = post.attribute('alterbyteBidding') + " ر.س";
+            }
             const approved = true;
             const isItapproved = approved === true ? 'approved' : 'NotApproved';
 
@@ -135,7 +162,7 @@ export default () => {
                             })}
                         </ul>
                         <div Class="item-bid">
-                            <input class="bidValue" type="text" name="CommentBid" value={bidPost} readonly></input>
+                            <input class="bidValue" type="text" name="CommentBid" value={this.bidPost} readonly></input>
                             </div>
                     </div>
                     <div className="Post-body">{m.trust(post.contentHtml())}
@@ -162,6 +189,9 @@ export default () => {
         if (post && bidPostValueIsNotNull && !post.isHidden() && thisPost.number() === 1 && !thisPost.isHidden() && notbargInitUser && !guest) {
             const user = post.user();
             const bidPost = post.attribute('alterbyteBidding') + " ر.س";
+            if(bidPost !== null){
+                this.bidPost = post.attribute('alterbyteBidding') + " ر.س";
+            }
             const approved = true;
             const isItapproved = approved === true ? 'approved' : 'NotApproved';
 
@@ -192,17 +222,13 @@ export default () => {
                             })}
                         </ul>
                         <div Class="item-bid">
-                            <input class="bidValue" type="text" name="CommentBid" value={bidPost} readonly></input>
+                            <input class="bidValue" type="text" name="CommentBid" value={this.bidPost} readonly></input>
                             </div>
                     </div>
                     <div className="Post-body">{m.trust(post.contentHtml())}
                     </div>
                     <div className="barg-footer">
                     <li className="item-confirm">
-                        {confirmButton.component({
-                            post,
-                            discussion,
-                        })}
                         </li>   
                     <li className="item-cancel">
                     {cancelButton.component({

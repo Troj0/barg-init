@@ -6,6 +6,7 @@ import Button from 'flarum/common/components/Button';
 import PostMeta from 'flarum/common/components/PostMeta';
 import DiscussionPage from 'flarum/common/components/DiscussionPage';
 
+
 export default class cancelButton extends Component {
     view() {
         const { post, discussion } = this.attrs;
@@ -40,6 +41,7 @@ export default class cancelButton extends Component {
                 Button.component({ 
                     textContent: 'Cancel',
                     onclick: () => {
+                        
                         isBargInit = !isBargInit;
                         
     
