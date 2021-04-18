@@ -73,7 +73,7 @@ return [
         (new Extend\ApiSerializer(DiscussionSerializer::class))
         ->hasOne('bargInitPost', BasicPostSerializer::class)
         ->hasOne('bargInitUser', BasicUserSerializer::class)
-        ->attribute('bargInitAnswer', function (DiscussionSerializer $serializer, AbstractModel $discussion) {
+        ->attribute('hasBargInit', function (DiscussionSerializer $serializer, AbstractModel $discussion) {
             return (bool) $discussion->bargInitPost;
         })
         ->attribute('canSelectbargInit', function (DiscussionSerializer $serializer, AbstractModel $discussion) {

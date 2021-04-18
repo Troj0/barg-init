@@ -5,6 +5,7 @@ import Discussion from 'flarum/common/models/Discussion';
 
 //adding badge on Discussion Hero / and on discussion list
 export default function() {
+
     extend(Discussion.prototype, 'badges', function(items) {
         if (this.hasBargInit() && !items.has('hidden')) {
             items.add(
